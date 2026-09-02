@@ -1,5 +1,5 @@
 import random
-from choises.story import *
+from choises.story import user_stories, story_locations, story_items, story_events
 
 #Apartado para el comando story
 async def tell_story(user_id: int):

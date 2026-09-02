@@ -50,7 +50,7 @@ async def on_ready():
 
 @bot.command()
 async def hello(ctx):
-    await ctx.send(send_hello)
+    await ctx.send(await send_hello())
 
 @bot.command()
 async def story(ctx):
