@@ -1,5 +1,7 @@
 import os
 import random
+import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
@@ -10,6 +12,22 @@ from commands.story import tell_story, user_stories
 load_dotenv()
 
 TOKEN = os.getenv("DISCORD_TOKEN")
+
+
+class HealthHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"OK")
+
+    def log_message(self, format, *args):
+        pass
+
+
+def start_health_server():
+    port = int(os.getenv("PORT", 8080))
+    server = HTTPServer(("0.0.0.0", port), HealthHandler)
+    server.serve_forever()
 
 
 intents = discord.Intents.default()
@@ -81,4 +99,5 @@ async def chat(ctx, *, message: str):
     )
 
 
+threading.Thread(target=start_health_server, daemon=True).start()
 bot.run(TOKEN)
