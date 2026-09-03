@@ -1,4 +1,4 @@
-help_response = {
+help_response = (
         "**Available commands:**\n"
         "`!hello` - Say hello\n"
         "`!story` - Start a new story\n"
@@ -6,4 +6,4 @@ help_response = {
         "`!choose right` - Choose the right path\n"
         "`!chat <message>` - Have a casual conversation\n"
         "`!support <message>` - Get general wellness support"
-}
+)

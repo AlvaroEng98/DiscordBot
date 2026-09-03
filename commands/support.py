@@ -1,6 +1,7 @@
+import random
 from choises.support_responses import support_responses
 
-async def support_responses(message: str):
+async def select_support(message: str):
 
     text = message.lower()
 

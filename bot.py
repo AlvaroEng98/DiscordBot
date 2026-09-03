@@ -15,6 +15,7 @@ from commands.hello import send_hello      # Función que saluda al usuario
 from commands.choose import select_choose  # Función que procesa elecciones del usuario
 from commands.story import tell_story, user_stories  # Función de historias y diccionario de historias activas
 from commands.chat import select_chat      # Función que genera respuestas de chat
+from commands.support import select_support  # Función que genera respuestas de soporte
 
 # ------------------------------------------------------------
 # Configuración de variables de entorno
@@ -63,7 +64,8 @@ intents.message_content = True        # Habilita la lectura del contenido de los
 
 bot = commands.Bot(
     command_prefix="!",               # Define "!" como el prefijo para activar comandos (ej: !hello)
-    intents=intents                   # Asigna los intents configurados al bot
+    intents=intents,                  # Asigna los intents configurados al bot
+    help_command=None                 # Desactiva el comando !help por defecto (se define uno propio más abajo)
 )
 
 
@@ -116,7 +118,7 @@ async def chat(ctx, *, message: str):
 @bot.command()
 async def support(ctx, *, message: str):
 
-    response = await support_responses(message)
+    response = await select_support(message)
     await ctx.send(response)
 
 @bot.command()
