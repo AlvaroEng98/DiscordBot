@@ -127,7 +127,7 @@ async def help(ctx):
 
 #En caso de introducir un comando erroneo se lanza este error
 @bot.event
-async def on_command(ctx, error)
+async def on_command(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send(
             "You're missing something. Try `!help` to see how the command works."
