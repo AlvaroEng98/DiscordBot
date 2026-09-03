@@ -129,14 +129,15 @@ async def help(ctx):
 
 #En caso de introducir un comando erroneo se lanza este error
 @bot.event
-async def on_command(ctx, error):
+async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send(
             "You're missing something. Try `!help` to see how the command works."
         )
 
     elif isinstance(error, commands.CommandNotFound):
-        return
+        await ctx.send(f"`{ctx.message.content}` is not a valid command.")
+        await ctx.send(help_response)
 
     else:
         print(f"Error: {error}")
