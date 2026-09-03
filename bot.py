@@ -9,7 +9,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler  # Servidor HTTP lige
 import discord         # Librería principal para interactuar con la API de Discord
 from discord.ext import commands  # Framework de comandos de discord.py
 from dotenv import load_dotenv     # Para cargar variables de entorno desde un archivo .env
-
+from choises.help import help_response
 # Importar módulos de comandos del bot
 from commands.hello import send_hello      # Función que saluda al usuario
 from commands.choose import select_choose  # Función que procesa elecciones del usuario
@@ -112,6 +112,33 @@ async def chat(ctx, *, message: str):
     """Comando !chat <mensaje> — Responde basado en palabras clave del mensaje."""
     response = await select_chat(message)  # Busca coincidencia por palabra clave y retorna respuesta
     await ctx.send(response)              # Envía la respuesta al canal de Discord
+
+@bot.command()
+async def support(ctx, *, message: str):
+
+    response = await support_responses(message)
+    await ctx.send(response)
+
+@bot.command()
+async def help(ctx):
+
+    await ctx.send(help_response)
+
+
+#En caso de introducir un comando erroneo se lanza este error
+@bot.event
+async def on_command(ctx, error)
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send(
+            "You're missing something. Try `!help` to see how the command works."
+        )
+
+    elif isinstance(error, commands.CommandNotFound):
+        return
+
+    else:
+        print(f"Error: {error}")
+
 
 
 # ============================================================
